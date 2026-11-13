@@ -1,0 +1,15 @@
+{
+  "name": "PinDeleter by Kriosity",
+  "short_name": "PinDeleter",
+  "description": "Bulk-delete your own Pinterest pins safely, with a backup.",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#E60023",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

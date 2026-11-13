@@ -1,0 +1,31 @@
+-- PinDeleter: Vault secrets used by the pg_cron schedules.
+-- 1. Copy this file to supabase/vault-seed.sql (git-ignored) or paste it into Supabase Dashboard → SQL Editor.
+-- 2. Replace the two placeholder values.
+--      project_url      = https://YOUR-PROJECT-REF.supabase.co   (Project Settings → API → Project URL)
+--      service_role_key = the "service_role" secret key             (Project Settings → API → service_role)
+-- 3. Run it once. Re-running it updates the values.
+
+do $$
+declare
+  v_url text := 'https://YOUR-PROJECT-REF.supabase.co';
+  v_key text := 'YOUR-SERVICE-ROLE-KEY';
+  v_id uuid;
+begin
+  select id into v_id from vault.secrets where name = 'project_url';
+  if v_id is null then
+    perform vault.create_secret(v_url, 'project_url', 'PinDeleter: Supabase project URL for pg_cron');
+  else
+    perform vault.update_secret(v_id, v_url);
+  end if;
+
+  select id into v_id from vault.secrets where name = 'service_role_key';
+  if v_id is null then
+    perform vault.create_secret(v_key, 'service_role_key', 'PinDeleter: service role key for pg_cron');
+  else
+    perform vault.update_secret(v_id, v_key);
+  end if;
+end;
+$$;
+
+-- Check: should return two rows.
+select name, created_at from vault.secrets where name in ('project_url', 'service_role_key');
