@@ -20,7 +20,7 @@ jobs:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_PROJECT_REF: jghyecyaazwbsdtgqsva
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Check access token
         id: guard
@@ -33,8 +33,8 @@ jobs:
       - uses: supabase/setup-cli@v1
         if: steps.guard.outputs.skip != 'true'
         with:
-          version: latest
+          version: 3.1.0
 
       - name: Deploy all functions
         if: steps.guard.outputs.skip != 'true'
-        run: supabase functions deploy --project-ref "$SUPABASE_PROJECT_REF" --use-api
+        run: supabase functions deploy --remote="$SUPABASE_PROJECT_REF" --use-api --yes
