@@ -3,7 +3,6 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/:page(pricing|about|contact|faq|how-it-works|privacy|terms|refund-policy|cookies|disclaimer|login|signup)",
